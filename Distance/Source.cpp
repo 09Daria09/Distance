@@ -11,11 +11,12 @@ using namespace std;
 int main()
 {
 	bool check = true;
+	bool check1 = true;
 	int str;
 	srand(time(NULL));
 	vector<Obstacles*>ob_ptr;
 
-	while (true)
+	while (check)
 	{
 
 		system("cls");
@@ -55,6 +56,7 @@ int main()
 		{
 			if (ptr->jump < ob_ptr[i]->height)
 			{
+				check1 = false;
 				cout << ptr->name << " lack of jumping power" << endl;
 				cout << "The game is over" << endl;
 				delete ptr;
@@ -62,11 +64,14 @@ int main()
 				cin >> str;
 				if (str == 2)
 				{
-					return 0;
+					check = false;
+					break;
 				}
+				break;
 			}
-			if (ptr->run < ob_ptr[i]->lenght)
+			else if (ptr->run < ob_ptr[i]->lenght)
 			{
+				check1 = false;
 				cout << ptr->name << " not enough stamina to run" << endl;
 				cout << "The game is over" << endl;
 				delete ptr;
@@ -74,12 +79,14 @@ int main()
 				cin >> str;
 				if (str == 2)
 				{
-					return 0;
+					check = false;
+					break;
 				}
+				break;
 			}
 			else
 			{
-				cout <<"   "<<ptr->name << " has overcome the hurdle number " << i + 1 << endl;
+				cout << "   " << ptr->name << " has overcome the hurdle number " << i + 1 << endl;
 				cout << "You have:" << endl;
 				ptr->run -= ob_ptr[i]->lenght;
 				ptr->jump -= ob_ptr[i]->height;
@@ -89,13 +96,16 @@ int main()
 			system("cls");
 
 		}
-		cout << ptr->name << " WIN this game" << endl;
-		delete ptr;
-		cout << "Would you like to play again? \n1.Yes\n2.NO" << endl;
-		cin >> str;
-		if (str == 2)
+		if (check1 == true)
 		{
-			return 0;
+			cout << ptr->name << " WINER this game" << endl;
+			delete ptr;
+			cout << "Would you like to play again? \n1.Yes\n2.NO" << endl;
+			cin >> str;
+			if (str == 2)
+			{
+				check = false;
+			}
 		}
 	}
 }
